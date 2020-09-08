@@ -2,19 +2,19 @@ import { InterfaceType, Field, Int } from 'type-graphql';
 
 @InterfaceType()
 export class PaginateInterface {
-  @Field()
+  @Field(() => Int)
   totalDocs!: number;
 
-  @Field()
+  @Field(() => Int)
   offset!: number;
 
-  @Field()
+  @Field(() => Int)
   limit!: number;
 
-  @Field()
+  @Field(() => Int)
   totalPages!: number;
 
-  @Field()
+  @Field(() => Int)
   page!: number;
 
   @Field()

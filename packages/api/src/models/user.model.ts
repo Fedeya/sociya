@@ -11,7 +11,7 @@ import paginate from 'mongoose-paginate-v2';
 import argon2 from 'argon2';
 import { PaginateModel } from 'mongoose';
 
-import { Rol, Status } from '@Enums';
+import { Roles, Status } from '@Enums';
 import { Post } from './post.model';
 
 @Pre<User>('save', async function () {
@@ -39,9 +39,9 @@ export class User {
   @Prop({ ref: Post })
   posts!: Ref<Post>[];
 
-  @Field(() => Rol)
-  @Prop({ default: Rol.NORMAL, enum: Rol })
-  rol: Rol = Rol.NORMAL;
+  @Field(() => Roles)
+  @Prop({ default: Roles.NORMAL, enum: Roles })
+  rol: Roles = Roles.NORMAL;
 
   @Prop({ default: Status.ACTIVE, enum: Status })
   status: Status = Status.ACTIVE;

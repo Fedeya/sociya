@@ -1,4 +1,3 @@
-import { ApolloError, ValidationError } from 'apollo-server-express';
 import { Resolver, Mutation, Arg } from 'type-graphql';
 
 import { UserModel } from '@Models/user.model';
@@ -11,11 +10,11 @@ import { JWT } from '@Utils/jwt';
 export class AuthResolver {
   @Mutation(() => Token)
   async login(@Arg('input') input: AuthInput): Promise<Token> {
-    const user = await UserModel.findOne({ email: input.email });
-    if (!user) throw new ApolloError('User not Found', 'NOT_FOUND');
+    const user = await UserModel.findOne({ email: input.email }).exec();
+    if (!user) throw new Error('user not exist');
 
     if (!(await user.comparePassword(input.password)))
-      throw new ValidationError('incorrect password');
+      throw new Error('incorrect password');
 
     return {
       token: JWT.generateToken(user)

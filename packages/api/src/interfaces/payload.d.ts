@@ -1,10 +1,10 @@
 import { ObjectId } from 'mongodb';
-import { Rol } from '@Enums';
+import { Roles } from '@Enums';
 
 export interface Payload {
   user: {
     id: ObjectId;
-    rol: Rol;
+    rol: Roles;
   };
   iat: number;
   exp: number;

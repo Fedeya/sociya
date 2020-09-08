@@ -10,6 +10,8 @@ export class JWT {
   }
 
   static generateToken(user: User, expiresIn: string = '1h') {
-    return jwt.sign({ user: { id: user.id } }, SECRET_JWT, { expiresIn });
+    return jwt.sign({ user: { id: user.id, rol: user.rol } }, SECRET_JWT, {
+      expiresIn
+    });
   }
 }
