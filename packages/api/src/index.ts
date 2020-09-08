@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { config } from 'dotenv';
 
-import app from './app';
 import { connectDB } from '@Config/mongoose';
+import app from './app';
 
 // dotenv
 config();

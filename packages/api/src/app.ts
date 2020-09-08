@@ -17,7 +17,8 @@ app.use(cors());
 // Apollo Server
 const server = new ApolloServer({
   schema: buildSchemaSync({
-    resolvers: [path.resolve(__dirname, 'graphql/resolvers/**/*.ts')]
+    resolvers: [path.resolve(__dirname, 'graphql/resolvers/**/*.ts')],
+    validate: false
   })
 });
 
