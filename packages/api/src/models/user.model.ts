@@ -4,7 +4,6 @@ import {
   getModelForClass,
   Plugins,
   Ref,
-  Pre,
   DocumentType
 } from '@typegoose/typegoose';
 import paginate from 'mongoose-paginate-v2';
@@ -14,9 +13,6 @@ import { PaginateModel } from 'mongoose';
 import { Roles, Status } from '@Enums';
 import { Post } from './post.model';
 
-@Pre<User>('save', async function () {
-  this.password = await argon2.hash(this.password);
-})
 @Plugins(paginate)
 @ObjectType()
 export class User {
@@ -31,7 +27,6 @@ export class User {
   @Prop({ required: true, trim: true, unique: true })
   email!: string;
 
-  @Field()
   @Prop({ required: true })
   password!: string;
 
@@ -54,6 +49,10 @@ export class User {
 
   comparePassword(password: string) {
     return argon2.verify(this.password, password);
+  }
+
+  async setPassword(password: string) {
+    this.password = await argon2.hash(password);
   }
 }
 

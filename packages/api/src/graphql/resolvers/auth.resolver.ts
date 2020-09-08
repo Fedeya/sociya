@@ -24,6 +24,7 @@ export class AuthResolver {
   @Mutation(() => Token)
   async register(@Arg('input') input: UserInput): Promise<Token> {
     const user = new UserModel(input);
+    await user.setPassword(input.password);
     await user.save();
 
     return {
