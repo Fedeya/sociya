@@ -1,11 +1,22 @@
 import { Field, ObjectType, ID } from 'type-graphql';
-import { Prop, getModelForClass, Plugins, Ref } from '@typegoose/typegoose';
+import {
+  Prop,
+  getModelForClass,
+  Plugins,
+  Ref,
+  Pre,
+  DocumentType
+} from '@typegoose/typegoose';
 import paginate from 'mongoose-paginate-v2';
+import argon2 from 'argon2';
+import { PaginateModel } from 'mongoose';
 
 import { Rol, Status } from '@Enums';
-import { Paginate } from '@Interfaces';
 import { Post } from './post.model';
 
+@Pre<User>('save', async function () {
+  this.password = await argon2.hash(this.password);
+})
 @Plugins(paginate)
 @ObjectType()
 export class User {
@@ -17,22 +28,22 @@ export class User {
   username!: string;
 
   @Field()
-  @Prop({ required: true, trim: true })
+  @Prop({ required: true, trim: true, unique: true })
   email!: string;
 
   @Field()
   @Prop({ required: true })
   password!: string;
 
-  @Field()
-  @Prop({ required: true, type: Post })
+  @Field(() => [Post])
+  @Prop({ ref: Post })
   posts!: Ref<Post>[];
 
   @Field(() => Rol)
-  @Prop({ default: Rol.NORMAL, type: Rol })
+  @Prop({ default: Rol.NORMAL, enum: Rol })
   rol: Rol = Rol.NORMAL;
 
-  @Prop({ default: Status.ACTIVE, type: Status })
+  @Prop({ default: Status.ACTIVE, enum: Status })
   status: Status = Status.ACTIVE;
 
   @Field()
@@ -41,11 +52,13 @@ export class User {
   @Field()
   updatedAt!: Date;
 
-  static paginate: Paginate<User>;
+  comparePassword(password: string) {
+    return argon2.verify(this.password, password);
+  }
 }
 
 export const UserModel = getModelForClass(User, {
   schemaOptions: {
     timestamps: true
   }
-});
+}) as PaginateModel<DocumentType<User>>;

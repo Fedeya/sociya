@@ -1,8 +1,14 @@
 import { Field, ObjectType, ID } from 'type-graphql';
-import { Prop, getModelForClass, Plugins, Ref } from '@typegoose/typegoose';
+import {
+  Prop,
+  getModelForClass,
+  Plugins,
+  Ref,
+  DocumentType
+} from '@typegoose/typegoose';
 import paginate from 'mongoose-paginate-v2';
+import { PaginateModel } from 'mongoose';
 
-import { Paginate } from '@Interfaces';
 import { Status } from '@Enums';
 import { User } from './user.model';
 
@@ -13,21 +19,25 @@ export class Post {
   id!: string;
 
   @Field(() => User)
-  @Prop({ type: User, required: true })
+  @Prop({ ref: 'User', required: true })
   user!: Ref<User>;
 
   @Field()
   @Prop({ trim: true, required: true })
   content!: string;
 
-  @Prop({ type: Status, default: Status.ACTIVE })
+  @Prop({ enum: Status, default: Status.ACTIVE })
   status: Status = Status.ACTIVE;
 
-  static paginate: Paginate<Post>;
+  @Field()
+  createdAt!: Date;
+
+  @Field()
+  updatedAt!: Date;
 }
 
 export const PostModel = getModelForClass(Post, {
   schemaOptions: {
     timestamps: true
   }
-});
+}) as PaginateModel<DocumentType<Post>>;
