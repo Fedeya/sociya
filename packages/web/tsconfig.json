@@ -18,7 +18,8 @@
       "@Atoms/*": ["components/atoms/*"],
       "@Molecules/*": ["components/molecules/*"],
       "@Organisms/*": ["components/organisms/*"],
-      "@Templates/*": ["components/templates/*"]
+      "@Templates/*": ["components/templates/*"],
+      "@Context/*": ["context/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
