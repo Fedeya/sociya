@@ -10,6 +10,6 @@ config();
 (function init() {
   connectDB();
   app.listen(app.get('port'), () => {
-    console.log('Server listening on', app.get('port'), '/graphql');
+    console.log('Server on port', app.get('port'));
   });
 })();

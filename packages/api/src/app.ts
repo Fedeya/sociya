@@ -41,6 +41,6 @@ const server = new ApolloServer({
   }
 });
 
-server.applyMiddleware({ app, path: '/graphql', cors: false });
+server.applyMiddleware({ app, path: '/', cors: false });
 
 export default app;
