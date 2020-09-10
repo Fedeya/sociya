@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { IconButton } from '@chakra-ui/core';
 import { FaBars } from 'react-icons/fa';
 
-import { SidebarContext } from '../../context/sidebar/sidebar-context';
+import { SidebarContext } from '@Context/sidebar/sidebar-context';
 
 const MenuButton: React.FC = () => {
   const { onOpen, menuRef } = useContext(SidebarContext);

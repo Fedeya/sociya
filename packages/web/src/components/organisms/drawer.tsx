@@ -10,7 +10,7 @@ import {
 
 import AuthButtons from '@Molecules/auth-buttons';
 import NavLinks from '@Molecules/nav-links';
-import { SidebarContext } from '../../context/sidebar/sidebar-context';
+import { SidebarContext } from '@Context/sidebar/sidebar-context';
 
 const Drawer: React.FC = () => {
   const { isOpen, onClose, menuRef } = useContext(SidebarContext);

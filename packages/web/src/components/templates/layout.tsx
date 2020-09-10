@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Navigation from '@Organisms/navigation';
 import Sidebar from '@Organisms/sidebar';
 import Drawer from '@Organisms/drawer';
-import SidebarProvider from '../../context/sidebar/sidebar-context';
+import SidebarProvider from '@Context/sidebar/sidebar-context';
 
 const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
   const [loading, setLoading] = useState(false);
