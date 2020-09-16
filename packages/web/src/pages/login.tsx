@@ -1,6 +1,7 @@
-import { Text } from '@chakra-ui/core';
 import LoginForm from '@Organisms/login-form';
 import Layout from '@Templates/layout';
+
+import { withAuthRedirect } from '@Utils/auth';
 
 const Login: React.FC = () => {
   return (
@@ -9,5 +10,7 @@ const Login: React.FC = () => {
     </Layout>
   );
 };
+
+export const getServerSideProps = withAuthRedirect();
 
 export default Login;

@@ -19,7 +19,10 @@
       "@Molecules/*": ["components/molecules/*"],
       "@Organisms/*": ["components/organisms/*"],
       "@Templates/*": ["components/templates/*"],
-      "@Context/*": ["context/*"]
+      "@Context/*": ["context/*"],
+      "@Generated/*": ["generated/*"],
+      "@Lib/*": ["lib/*"],
+      "@Utils/*": ["utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

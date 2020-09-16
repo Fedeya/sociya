@@ -40,7 +40,7 @@ const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
             justifyContent="center"
             align="center"
             width="full"
-            minHeight="90vh"
+            minH="calc(100vh - 5rem)"
           >
             <Spinner size="xl" />
           </Flex>

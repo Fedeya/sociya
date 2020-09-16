@@ -1,0 +1,8 @@
+query Posts {
+  posts {
+    docs {
+      id
+      content
+    }
+  }
+}
