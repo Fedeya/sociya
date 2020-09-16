@@ -94,7 +94,7 @@ const LoginForm: React.FC = () => {
               />
               <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
-            <Button isLoading={fetching} type="submit" variantColor="purple">
+            <Button isLoading={fetching} type="submit" colorScheme="purple">
               Login
             </Button>
           </Stack>

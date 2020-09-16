@@ -10,7 +10,7 @@ const MenuButton: React.FC = () => {
   return (
     <IconButton
       aria-label="open menu"
-      icon={FaBars}
+      icon={<FaBars />}
       variant="ghost"
       display={{ md: 'none' }}
       onClick={onOpen}

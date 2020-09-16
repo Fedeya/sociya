@@ -18,7 +18,7 @@ const AuthButtons: React.FC = () => {
 
   if (auth) {
     return (
-      <Button onClick={handleClick} variantColor="purple">
+      <Button onClick={handleClick} colorScheme="purple">
         Logout
       </Button>
     );
@@ -27,12 +27,12 @@ const AuthButtons: React.FC = () => {
   return (
     <>
       <Link href="/login" passHref>
-        <Button as="a" mr={3} variantColor="purple">
+        <Button as="a" mr={3} colorScheme="purple">
           Login
         </Button>
       </Link>
       <Link href="/register" passHref>
-        <Button as="a" variantColor="purple" variant="outline">
+        <Button as="a" colorScheme="purple" variant="outline">
           Register
         </Button>
       </Link>

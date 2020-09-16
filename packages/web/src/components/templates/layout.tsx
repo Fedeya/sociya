@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Spinner, Flex, Box } from '@chakra-ui/core';
+import { Spinner, Flex, Container } from '@chakra-ui/core';
 import Router from 'next/router';
 import Head from 'next/head';
 
@@ -45,9 +45,9 @@ const Layout: React.FC<{ title?: string }> = ({ children, title }) => {
             <Spinner size="xl" />
           </Flex>
         ) : (
-          <Box width="full">
+          <Container>
             <main>{children}</main>
-          </Box>
+          </Container>
         )}
       </Flex>
     </SidebarProvider>
