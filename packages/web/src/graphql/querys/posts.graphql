@@ -3,6 +3,9 @@ query Posts {
     docs {
       id
       content
+      user {
+        username
+      }
     }
   }
 }

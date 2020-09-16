@@ -22,7 +22,8 @@
       "@Context/*": ["context/*"],
       "@Generated/*": ["generated/*"],
       "@Lib/*": ["lib/*"],
-      "@Utils/*": ["utils/*"]
+      "@Utils/*": ["utils/*"],
+      "@Hooks/*": ["hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

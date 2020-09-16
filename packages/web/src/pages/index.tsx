@@ -2,14 +2,18 @@ import { GetServerSideProps } from 'next';
 import { Text } from '@chakra-ui/core';
 
 import { getClient } from '@Lib/urql';
-import Layout from '@Templates/layout';
 import { PostsDocument } from '@Generated/graphql';
 import { withAuth } from '@Utils/auth';
+
+import Layout from '@Templates/layout';
+import PostList from '@Organisms/post-list';
+import PostForm from '@Organisms/post-form';
 
 const Home: React.FC = () => {
   return (
     <Layout>
-      <Text>Hello World</Text>
+      <PostForm />
+      <PostList />
     </Layout>
   );
 };
