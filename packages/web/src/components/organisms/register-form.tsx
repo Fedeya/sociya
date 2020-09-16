@@ -56,7 +56,12 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <Flex justifyContent="center" alignItems="center" minH="90vh" width="full">
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      minH="calc(100vh - 5rem)"
+      width="full"
+    >
       <Box
         borderWidth={1}
         borderRadius={4}

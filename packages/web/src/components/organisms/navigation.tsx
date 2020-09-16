@@ -14,6 +14,7 @@ const Navigation: React.FC = () => {
       justifyContent="space-between"
       align="center"
       width="full"
+      h="5rem"
       boxShadow="md"
     >
       <Logo />
