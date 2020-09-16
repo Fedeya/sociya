@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   Flex,
   Input,
@@ -12,18 +13,27 @@ import {
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
+import { useRegisterMutation } from '@Generated/graphql';
+import { AuthContext } from '@Context/auth/auth-context';
 
 type FormValues = {
-  name: string;
+  username: string;
   email: string;
   password: string;
 };
 
 const RegisterForm: React.FC = () => {
+  const [{ fetching }, registerMutation] = useRegisterMutation();
+  const { setToken } = useContext(AuthContext);
+  const router = useRouter();
+
   const { register, errors, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(
       yup.object({
-        name: yup.string().required('the name is required.'),
+        username: yup.string().required('the username is required.'),
         email: yup
           .string()
           .required('the email is required.')
@@ -34,8 +44,15 @@ const RegisterForm: React.FC = () => {
     mode: 'all'
   });
 
-  const onSubmit: SubmitHandler<FormValues> = values => {
-    console.log('register values:', values);
+  const onSubmit: SubmitHandler<FormValues> = async values => {
+    const { data } = await registerMutation({
+      input: values
+    });
+    if (data) {
+      await axios.post('/api/auth', { token: data.register.token });
+      setToken(data.register.token);
+      await router.push('/');
+    }
   };
 
   return (
@@ -54,10 +71,10 @@ const RegisterForm: React.FC = () => {
         </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack>
-            <FormControl isInvalid={!!errors.name}>
-              <FormLabel>Name</FormLabel>
-              <Input ref={register} name="name" placeholder="Name" />
-              <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+            <FormControl isInvalid={!!errors.username}>
+              <FormLabel>Username</FormLabel>
+              <Input ref={register} name="username" placeholder="Username" />
+              <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.email}>
               <FormLabel>Email</FormLabel>
@@ -79,7 +96,7 @@ const RegisterForm: React.FC = () => {
               />
               <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
-            <Button type="submit" variantColor="purple">
+            <Button isLoading={fetching} type="submit" variantColor="purple">
               Create Account
             </Button>
           </Stack>

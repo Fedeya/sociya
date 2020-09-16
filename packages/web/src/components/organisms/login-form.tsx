@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   Flex,
   Input,
@@ -12,6 +13,11 @@ import {
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
+import { AuthContext } from '@Context/auth/auth-context';
+import { useLoginMutation } from '@Generated/graphql';
 
 type FormValues = {
   email: string;
@@ -19,6 +25,10 @@ type FormValues = {
 };
 
 const LoginForm: React.FC = () => {
+  const [{ fetching }, login] = useLoginMutation();
+  const router = useRouter();
+  const { setToken } = useContext(AuthContext);
+
   const { register, errors, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(
       yup.object({
@@ -32,8 +42,15 @@ const LoginForm: React.FC = () => {
     mode: 'all'
   });
 
-  const onSubmit: SubmitHandler<FormValues> = values => {
-    console.log('login values:', values);
+  const onSubmit: SubmitHandler<FormValues> = async values => {
+    const { data } = await login({
+      input: values
+    });
+    if (data) {
+      await axios.post('/api/auth', { token: data.login.token });
+      setToken(data.login.token);
+      await router.push('/');
+    }
   };
 
   return (
@@ -72,7 +89,7 @@ const LoginForm: React.FC = () => {
               />
               <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
-            <Button type="submit" variantColor="purple">
+            <Button isLoading={fetching} type="submit" variantColor="purple">
               Login
             </Button>
           </Stack>

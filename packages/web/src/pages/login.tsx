@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/core';
 import LoginForm from '@Organisms/login-form';
 import Layout from '@Templates/layout';
 
