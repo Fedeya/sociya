@@ -4,7 +4,7 @@ import { Text } from '@chakra-ui/core';
 import { getClient } from '@Lib/urql';
 import Layout from '@Templates/layout';
 import { PostsDocument } from '@Generated/graphql';
-import { withAuth } from '../utils/auth';
+import { withAuth } from '@Utils/auth';
 
 const Home: React.FC = () => {
   return (

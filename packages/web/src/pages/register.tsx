@@ -1,7 +1,6 @@
 import Layout from '@Templates/layout';
 import RegisterForm from '@Organisms/register-form';
-
-import { withAuthRedirect } from '../utils/auth';
+import { withAuthRedirect } from '@Utils/auth';
 
 const Register: React.FC = () => {
   return (
