@@ -9,7 +9,7 @@ export const withAuth = (fn: GetServerSideProps) => {
 
     return {
       props: {
-        token,
+        token: token ?? null,
         ...p.props
       }
     };
