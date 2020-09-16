@@ -18,7 +18,6 @@ export const getServerSideProps: GetServerSideProps = withAuth(async ctx => {
   const client = getClient(ctx);
 
   const res = await client.query(PostsDocument).toPromise();
-  console.log(res);
 
   return {
     props: {

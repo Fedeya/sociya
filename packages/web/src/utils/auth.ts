@@ -17,3 +17,21 @@ export const withAuth = (fn: GetServerSideProps) => {
 
   return auth;
 };
+
+export const withAuthRedirect = () => {
+  const redirect: GetServerSideProps = async ctx => {
+    const cookie = new Cookie(ctx.req, ctx.res);
+    const token = cookie.get('token');
+
+    if (token) {
+      ctx.res.writeHead(302, { Location: '/' });
+      ctx.res.end();
+    }
+
+    return {
+      props: {}
+    };
+  };
+
+  return redirect;
+};
