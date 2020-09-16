@@ -36,7 +36,7 @@ const createUrqlClient = (
 
         return {
           headers: {
-            authorization: token ?? ''
+            authorization: `Bearer ${token}` ?? ''
           }
         };
       }
@@ -52,8 +52,8 @@ export const getClient = (
 ) => {
   const _urqlClient = urqlClient ?? createUrqlClient(ssr.extractData(), ctx);
 
-  if (!urqlClient) urqlClient = _urqlClient;
   if (isServer) return _urqlClient;
+  if (!urqlClient) urqlClient = _urqlClient;
 
   return _urqlClient;
 };

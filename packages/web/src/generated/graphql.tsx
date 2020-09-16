@@ -143,6 +143,23 @@ export type MutationCreatePostArgs = {
   input: PostInput;
 };
 
+export type CreatePostMutationVariables = Exact<{
+  input: PostInput;
+}>;
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPost: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'content' | 'id'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    ) }
+  ) }
+);
+
 export type LoginMutationVariables = Exact<{
   input: AuthInput;
 }>;
@@ -179,11 +196,30 @@ export type PostsQuery = (
     & { docs: Array<(
       { __typename?: 'Post' }
       & Pick<Post, 'id' | 'content'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'username'>
+      ) }
     )> }
   ) }
 );
 
 
+export const CreatePostDocument = gql`
+    mutation CreatePost($input: PostInput!) {
+  createPost(input: $input) {
+    content
+    id
+    user {
+      username
+    }
+  }
+}
+    `;
+
+export function useCreatePostMutation() {
+  return Urql.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument);
+};
 export const LoginDocument = gql`
     mutation Login($input: AuthInput!) {
   login(input: $input) {
@@ -212,6 +248,9 @@ export const PostsDocument = gql`
     docs {
       id
       content
+      user {
+        username
+      }
     }
   }
 }
