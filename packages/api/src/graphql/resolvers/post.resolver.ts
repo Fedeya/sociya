@@ -16,13 +16,23 @@ import { UserModel } from '@Models/user.model';
 import { PostsResponse } from '@Types/post.type';
 import { Roles, Status } from '@Enums';
 import { PostInput } from '@Inputs/post.input';
+import { PaginateInput } from '@Inputs/paginate.input';
 import { Context } from '@Interfaces';
 
 @Resolver(Post)
 export class PostResolver {
   @Query(() => PostsResponse)
-  async posts(): Promise<PostsResponse> {
-    const posts = await PostModel.paginate({ status: Status.ACTIVE });
+  async posts(
+    @Arg('limit', { nullable: true }) limit: number,
+    @Arg('offset', { nullable: true }) offset: number
+  ): Promise<PostsResponse> {
+    const posts = await PostModel.paginate(
+      { status: Status.ACTIVE },
+      {
+        limit,
+        offset
+      }
+    );
     return posts;
   }
 

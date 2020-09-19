@@ -5,12 +5,15 @@ import { User, UserModel } from '@Models/user.model';
 import { PostModel } from '@Models/post.model';
 import { Status } from '@Enums';
 import { UsersResponse } from '@Types/user.type';
+import { PaginateInput } from '@Inputs/paginate.input';
 
 @Resolver(User)
 export class UserResolver {
   @Query(() => UsersResponse)
-  async users(): Promise<UsersResponse> {
-    const users = await UserModel.paginate({ status: Status.ACTIVE });
+  async users(
+    @Arg('input', { nullable: true }) input: PaginateInput
+  ): Promise<UsersResponse> {
+    const users = await UserModel.paginate({ status: Status.ACTIVE }, input);
     return users;
   }
 
